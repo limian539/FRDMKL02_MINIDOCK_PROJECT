@@ -399,176 +399,181 @@ ARM Macro Assembler    Page 7
 ]
   245 00000000                 IMPORT           SystemInit
   246 00000000                 IMPORT           AppMain
-  247 00000000 4807            LDR              R0, =SystemInit
-  248 00000002 4780            BLX              R0
-  249 00000004 4807            LDR              R0, =AppMain
-  250 00000006 4700            BX               R0
-  251 00000008                 ENDP
-  252 00000008         
-  253 00000008         
-  254 00000008         ; Dummy Exception Handlers (infinite loops which can be 
+  247 00000000                 IMPORT           initialRwData
+  248 00000000                 IMPORT           initialZiData
+  249 00000000 480A            LDR              R0, =SystemInit
+  250 00000002 4780            BLX              R0
+  251 00000004 F7FF FFFE       BL.W             __user_initial_stackheap
+  252 00000008 F7FF FFFE       BL.W             initialRwData
+  253 0000000C F7FF FFFE       BL.W             initialZiData
+  254 00000010 4807            LDR              R0, =AppMain
+  255 00000012 4700            BX               R0
+  256 00000014                 ENDP
+  257 00000014         
+  258 00000014         
+  259 00000014         ; Dummy Exception Handlers (infinite loops which can be 
                        modified)
-  255 00000008         
-  256 00000008         NMI_Handler
+  260 00000014         
+  261 00000014         NMI_Handler
                                PROC
-  257 00000008                 EXPORT           NMI_Handler               [WEAK
+  262 00000014                 EXPORT           NMI_Handler               [WEAK
 ]
-  258 00000008 E7FE            B                .
-  259 0000000A                 ENDP
-  261 0000000A         HardFault_Handler
+  263 00000014 E7FE            B                .
+  264 00000016                 ENDP
+  266 00000016         HardFault_Handler
                                PROC
-  262 0000000A                 EXPORT           HardFault_Handler         [WEAK
+  267 00000016                 EXPORT           HardFault_Handler         [WEAK
 ]
-  263 0000000A E7FE            B                .
-  264 0000000C                 ENDP
-  265 0000000C         SVC_Handler
+  268 00000016 E7FE            B                .
+  269 00000018                 ENDP
+  270 00000018         SVC_Handler
                                PROC
-  266 0000000C                 EXPORT           SVC_Handler               [WEAK
+  271 00000018                 EXPORT           SVC_Handler               [WEAK
 ]
-  267 0000000C E7FE            B                .
-  268 0000000E                 ENDP
-  269 0000000E         PendSV_Handler
+  272 00000018 E7FE            B                .
+  273 0000001A                 ENDP
+  274 0000001A         PendSV_Handler
                                PROC
-  270 0000000E                 EXPORT           PendSV_Handler            [WEAK
+  275 0000001A                 EXPORT           PendSV_Handler            [WEAK
 ]
-  271 0000000E E7FE            B                .
-  272 00000010                 ENDP
-  273 00000010         SysTick_Handler
+  276 0000001A E7FE            B                .
+  277 0000001C                 ENDP
+  278 0000001C         SysTick_Handler
                                PROC
-  274 00000010                 EXPORT           SysTick_Handler           [WEAK
+  279 0000001C                 EXPORT           SysTick_Handler           [WEAK
 ]
-  275 00000010 E7FE            B                .
-  276 00000012                 ENDP
-  277 00000012         
-  278 00000012         Default_Handler
+  280 0000001C E7FE            B                .
+  281 0000001E                 ENDP
+  282 0000001E         
+  283 0000001E         Default_Handler
                                PROC
-  279 00000012                 EXPORT           Reserved16_IRQHandler     [WEAK
+  284 0000001E                 EXPORT           Reserved16_IRQHandler     [WEAK
 ]
-  280 00000012                 EXPORT           Reserved17_IRQHandler     [WEAK
+  285 0000001E                 EXPORT           Reserved17_IRQHandler     [WEAK
 ]
-  281 00000012                 EXPORT           Reserved18_IRQHandler     [WEAK
+  286 0000001E                 EXPORT           Reserved18_IRQHandler     [WEAK
 ]
-  282 00000012                 EXPORT           Reserved19_IRQHandler     [WEAK
-]
-  283 00000012                 EXPORT           Reserved20_IRQHandler     [WEAK
-]
-  284 00000012                 EXPORT           FTFA_IRQHandler     [WEAK]
 
 
 
 ARM Macro Assembler    Page 8 
 
 
-  285 00000012                 EXPORT           LVD_LVW_IRQHandler     [WEAK]
-  286 00000012                 EXPORT           Reserved23_IRQHandler     [WEAK
+  287 0000001E                 EXPORT           Reserved19_IRQHandler     [WEAK
 ]
-  287 00000012                 EXPORT           I2C0_IRQHandler     [WEAK]
-  288 00000012                 EXPORT           I2C1_IRQHandler     [WEAK]
-  289 00000012                 EXPORT           SPI0_IRQHandler     [WEAK]
-  290 00000012                 EXPORT           Reserved27_IRQHandler     [WEAK
+  288 0000001E                 EXPORT           Reserved20_IRQHandler     [WEAK
 ]
-  291 00000012                 EXPORT           UART0_IRQHandler     [WEAK]
-  292 00000012                 EXPORT           Reserved29_IRQHandler     [WEAK
+  289 0000001E                 EXPORT           FTFA_IRQHandler     [WEAK]
+  290 0000001E                 EXPORT           LVD_LVW_IRQHandler     [WEAK]
+  291 0000001E                 EXPORT           Reserved23_IRQHandler     [WEAK
 ]
-  293 00000012                 EXPORT           Reserved30_IRQHandler     [WEAK
+  292 0000001E                 EXPORT           I2C0_IRQHandler     [WEAK]
+  293 0000001E                 EXPORT           I2C1_IRQHandler     [WEAK]
+  294 0000001E                 EXPORT           SPI0_IRQHandler     [WEAK]
+  295 0000001E                 EXPORT           Reserved27_IRQHandler     [WEAK
 ]
-  294 00000012                 EXPORT           ADC0_IRQHandler     [WEAK]
-  295 00000012                 EXPORT           CMP0_IRQHandler     [WEAK]
-  296 00000012                 EXPORT           TPM0_IRQHandler     [WEAK]
-  297 00000012                 EXPORT           TPM1_IRQHandler     [WEAK]
-  298 00000012                 EXPORT           Reserved35_IRQHandler     [WEAK
+  296 0000001E                 EXPORT           UART0_IRQHandler     [WEAK]
+  297 0000001E                 EXPORT           Reserved29_IRQHandler     [WEAK
 ]
-  299 00000012                 EXPORT           Reserved36_IRQHandler     [WEAK
+  298 0000001E                 EXPORT           Reserved30_IRQHandler     [WEAK
 ]
-  300 00000012                 EXPORT           Reserved37_IRQHandler     [WEAK
+  299 0000001E                 EXPORT           ADC0_IRQHandler     [WEAK]
+  300 0000001E                 EXPORT           CMP0_IRQHandler     [WEAK]
+  301 0000001E                 EXPORT           TPM0_IRQHandler     [WEAK]
+  302 0000001E                 EXPORT           TPM1_IRQHandler     [WEAK]
+  303 0000001E                 EXPORT           Reserved35_IRQHandler     [WEAK
 ]
-  301 00000012                 EXPORT           Reserved38_IRQHandler     [WEAK
+  304 0000001E                 EXPORT           Reserved36_IRQHandler     [WEAK
 ]
-  302 00000012                 EXPORT           Reserved39_IRQHandler     [WEAK
+  305 0000001E                 EXPORT           Reserved37_IRQHandler     [WEAK
 ]
-  303 00000012                 EXPORT           Reserved40_IRQHandler     [WEAK
+  306 0000001E                 EXPORT           Reserved38_IRQHandler     [WEAK
 ]
-  304 00000012                 EXPORT           Reserved41_IRQHandler     [WEAK
+  307 0000001E                 EXPORT           Reserved39_IRQHandler     [WEAK
 ]
-  305 00000012                 EXPORT           Reserved42_IRQHandler     [WEAK
+  308 0000001E                 EXPORT           Reserved40_IRQHandler     [WEAK
 ]
-  306 00000012                 EXPORT           MCG_IRQHandler     [WEAK]
-  307 00000012                 EXPORT           TimerHandler     [WEAK]
-  308 00000012                 EXPORT           Reserved45_IRQHandler     [WEAK
+  309 0000001E                 EXPORT           Reserved41_IRQHandler     [WEAK
 ]
-  309 00000012                 EXPORT           PORTA_IRQHandler     [WEAK]
-  310 00000012                 EXPORT           PORTB_IRQHandler     [WEAK]
-  311 00000012                 EXPORT           DefaultISR                     
+  310 0000001E                 EXPORT           Reserved42_IRQHandler     [WEAK
+]
+  311 0000001E                 EXPORT           MCG_IRQHandler     [WEAK]
+  312 0000001E                 EXPORT           TimerHandler     [WEAK]
+  313 0000001E                 EXPORT           Reserved45_IRQHandler     [WEAK
+]
+  314 0000001E                 EXPORT           PORTA_IRQHandler     [WEAK]
+  315 0000001E                 EXPORT           PORTB_IRQHandler     [WEAK]
+  316 0000001E                 EXPORT           DefaultISR                     
  [WEAK]
-  312 00000012         
-  313 00000012         Reserved16_IRQHandler
-  314 00000012         Reserved17_IRQHandler
-  315 00000012         Reserved18_IRQHandler
-  316 00000012         Reserved19_IRQHandler
-  317 00000012         Reserved20_IRQHandler
-  318 00000012         FTFA_IRQHandler
-  319 00000012         LVD_LVW_IRQHandler
-  320 00000012         Reserved23_IRQHandler
-  321 00000012         I2C0_IRQHandler
-  322 00000012         I2C1_IRQHandler
-  323 00000012         SPI0_IRQHandler
-  324 00000012         Reserved27_IRQHandler
-  325 00000012         UART0_IRQHandler
-  326 00000012         Reserved29_IRQHandler
-  327 00000012         Reserved30_IRQHandler
-  328 00000012         ADC0_IRQHandler
-  329 00000012         CMP0_IRQHandler
+  317 0000001E         
+  318 0000001E         Reserved16_IRQHandler
+  319 0000001E         Reserved17_IRQHandler
+  320 0000001E         Reserved18_IRQHandler
+  321 0000001E         Reserved19_IRQHandler
+  322 0000001E         Reserved20_IRQHandler
+  323 0000001E         FTFA_IRQHandler
+  324 0000001E         LVD_LVW_IRQHandler
+  325 0000001E         Reserved23_IRQHandler
+  326 0000001E         I2C0_IRQHandler
+  327 0000001E         I2C1_IRQHandler
+  328 0000001E         SPI0_IRQHandler
+  329 0000001E         Reserved27_IRQHandler
 
 
 
 ARM Macro Assembler    Page 9 
 
 
-  330 00000012         TPM0_IRQHandler
-  331 00000012         TPM1_IRQHandler
-  332 00000012         Reserved35_IRQHandler
-  333 00000012         Reserved36_IRQHandler
-  334 00000012         Reserved37_IRQHandler
-  335 00000012         Reserved38_IRQHandler
-  336 00000012         Reserved39_IRQHandler
-  337 00000012         Reserved40_IRQHandler
-  338 00000012         Reserved41_IRQHandler
-  339 00000012         Reserved42_IRQHandler
-  340 00000012         MCG_IRQHandler
-  341 00000012         TimerHandler
-  342 00000012         Reserved45_IRQHandler
-  343 00000012         PORTA_IRQHandler
-  344 00000012         PORTB_IRQHandler
-  345 00000012         DefaultISR
-  346 00000012         
-  347 00000012 E7FE            B                .
-  348 00000014         
-  349 00000014                 ENDP
-  350 00000014         
-  351 00000014         
-  352 00000014                 ALIGN
-  353 00000014         
-  354 00000014         
-  355 00000014         ; User Initial Stack & Heap
-  356 00000014         
-  357 00000014                 IF               :DEF:__MICROLIB
-  364 00000014         
-  365 00000014                 IMPORT           __use_two_region_memory
-  366 00000014                 EXPORT           __user_initial_stackheap
-  367 00000014         __user_initial_stackheap
-  368 00000014         
-  369 00000014 4804            LDR              R0, =  Heap_Mem
-  370 00000016 4905            LDR              R1, =(Stack_Mem + Stack_Size)
-  371 00000018 4A03            LDR              R2, = (Heap_Mem +  Heap_Size)
-  372 0000001A 4B05            LDR              R3, = Stack_Mem
-  373 0000001C 4770            BX               LR
-  374 0000001E         
-  375 0000001E 00 00           ALIGN
-  376 00000020         
-  377 00000020                 ENDIF
-  378 00000020         
-  379 00000020         
-  380 00000020                 END
+  330 0000001E         UART0_IRQHandler
+  331 0000001E         Reserved29_IRQHandler
+  332 0000001E         Reserved30_IRQHandler
+  333 0000001E         ADC0_IRQHandler
+  334 0000001E         CMP0_IRQHandler
+  335 0000001E         TPM0_IRQHandler
+  336 0000001E         TPM1_IRQHandler
+  337 0000001E         Reserved35_IRQHandler
+  338 0000001E         Reserved36_IRQHandler
+  339 0000001E         Reserved37_IRQHandler
+  340 0000001E         Reserved38_IRQHandler
+  341 0000001E         Reserved39_IRQHandler
+  342 0000001E         Reserved40_IRQHandler
+  343 0000001E         Reserved41_IRQHandler
+  344 0000001E         Reserved42_IRQHandler
+  345 0000001E         MCG_IRQHandler
+  346 0000001E         TimerHandler
+  347 0000001E         Reserved45_IRQHandler
+  348 0000001E         PORTA_IRQHandler
+  349 0000001E         PORTB_IRQHandler
+  350 0000001E         DefaultISR
+  351 0000001E         
+  352 0000001E E7FE            B                .
+  353 00000020         
+  354 00000020                 ENDP
+  355 00000020         
+  356 00000020         
+  357 00000020                 ALIGN
+  358 00000020         
+  359 00000020         
+  360 00000020         ; User Initial Stack & Heap
+  361 00000020         
+  362 00000020                 IF               :DEF:__MICROLIB
+  369 00000020         
+  370 00000020                 IMPORT           __use_two_region_memory
+  371 00000020                 EXPORT           __user_initial_stackheap
+  372 00000020         __user_initial_stackheap
+  373 00000020         
+  374 00000020 4804            LDR              R0, =  Heap_Mem
+  375 00000022 4905            LDR              R1, =(Stack_Mem + Stack_Size)
+  376 00000024 4A03            LDR              R2, = (Heap_Mem +  Heap_Size)
+  377 00000026 4B05            LDR              R3, = Stack_Mem
+  378 00000028 4770            BX               LR
+  379 0000002A         
+  380 0000002A 00 00           ALIGN
+  381 0000002C         
+  382 0000002C                 ENDIF
+  383 0000002C         
+  384 0000002C         
+  385 0000002C                 END
               00000000 
               00000000 
               00000000 
@@ -578,6 +583,12 @@ Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
 work --depend=.\objects\startup_mkl02z4.d -o.\objects\startup_mkl02z4.o -IF:\My
 Git\FRDMKL02_MINIDOCK_PROJECT\Project\RTE -IC:\Keil_v5\ARM\PACK\Keil\Kinetis_KL
 xx_DFP\1.8.0\Device\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__UVISI
+
+
+
+ARM Macro Assembler    Page 10 
+
+
 ON_VERSION SETA 516" --predefine="MKL02Z32xxx4 SETA 1" --list=.\listings\startu
 p_mkl02z4.lst ..\System\startup_MKL02Z4.s
 
@@ -600,8 +611,8 @@ Symbol: Stack_Mem
    Definitions
       At line 22 in file ..\System\startup_MKL02Z4.s
    Uses
-      At line 370 in file ..\System\startup_MKL02Z4.s
-      At line 372 in file ..\System\startup_MKL02Z4.s
+      At line 375 in file ..\System\startup_MKL02Z4.s
+      At line 377 in file ..\System\startup_MKL02Z4.s
 
 __initial_sp 00000100
 
@@ -632,8 +643,8 @@ Symbol: Heap_Mem
    Definitions
       At line 34 in file ..\System\startup_MKL02Z4.s
    Uses
-      At line 369 in file ..\System\startup_MKL02Z4.s
-      At line 371 in file ..\System\startup_MKL02Z4.s
+      At line 374 in file ..\System\startup_MKL02Z4.s
+      At line 376 in file ..\System\startup_MKL02Z4.s
 
 __heap_base 00000000
 
@@ -714,57 +725,57 @@ Symbol: .text
    Uses
       None
 Comment: .text unused
-ADC0_IRQHandler 00000012
+ADC0_IRQHandler 0000001E
 
 Symbol: ADC0_IRQHandler
    Definitions
-      At line 328 in file ..\System\startup_MKL02Z4.s
+      At line 333 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 82 in file ..\System\startup_MKL02Z4.s
-      At line 294 in file ..\System\startup_MKL02Z4.s
+      At line 299 in file ..\System\startup_MKL02Z4.s
 
-CMP0_IRQHandler 00000012
+CMP0_IRQHandler 0000001E
 
 Symbol: CMP0_IRQHandler
    Definitions
-      At line 329 in file ..\System\startup_MKL02Z4.s
+      At line 334 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 83 in file ..\System\startup_MKL02Z4.s
-      At line 295 in file ..\System\startup_MKL02Z4.s
+      At line 300 in file ..\System\startup_MKL02Z4.s
 
-DefaultISR 00000012
+DefaultISR 0000001E
 
 Symbol: DefaultISR
    Definitions
-      At line 345 in file ..\System\startup_MKL02Z4.s
+      At line 350 in file ..\System\startup_MKL02Z4.s
    Uses
-      At line 311 in file ..\System\startup_MKL02Z4.s
+      At line 316 in file ..\System\startup_MKL02Z4.s
 Comment: DefaultISR used once
-Default_Handler 00000012
+Default_Handler 0000001E
 
 Symbol: Default_Handler
    Definitions
-      At line 278 in file ..\System\startup_MKL02Z4.s
+      At line 283 in file ..\System\startup_MKL02Z4.s
    Uses
       None
 Comment: Default_Handler unused
-FTFA_IRQHandler 00000012
+FTFA_IRQHandler 0000001E
 
 Symbol: FTFA_IRQHandler
    Definitions
-      At line 318 in file ..\System\startup_MKL02Z4.s
+      At line 323 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 72 in file ..\System\startup_MKL02Z4.s
-      At line 284 in file ..\System\startup_MKL02Z4.s
+      At line 289 in file ..\System\startup_MKL02Z4.s
 
-HardFault_Handler 0000000A
+HardFault_Handler 00000016
 
 Symbol: HardFault_Handler
    Definitions
-      At line 261 in file ..\System\startup_MKL02Z4.s
+      At line 266 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 52 in file ..\System\startup_MKL02Z4.s
-      At line 262 in file ..\System\startup_MKL02Z4.s
+      At line 267 in file ..\System\startup_MKL02Z4.s
 
 
 
@@ -772,61 +783,61 @@ ARM Macro Assembler    Page 2 Alphabetic symbol ordering
 Relocatable symbols
 
 
-I2C0_IRQHandler 00000012
+I2C0_IRQHandler 0000001E
 
 Symbol: I2C0_IRQHandler
    Definitions
-      At line 321 in file ..\System\startup_MKL02Z4.s
+      At line 326 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 75 in file ..\System\startup_MKL02Z4.s
-      At line 287 in file ..\System\startup_MKL02Z4.s
+      At line 292 in file ..\System\startup_MKL02Z4.s
 
-I2C1_IRQHandler 00000012
+I2C1_IRQHandler 0000001E
 
 Symbol: I2C1_IRQHandler
    Definitions
-      At line 322 in file ..\System\startup_MKL02Z4.s
+      At line 327 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 76 in file ..\System\startup_MKL02Z4.s
-      At line 288 in file ..\System\startup_MKL02Z4.s
+      At line 293 in file ..\System\startup_MKL02Z4.s
 
-LVD_LVW_IRQHandler 00000012
+LVD_LVW_IRQHandler 0000001E
 
 Symbol: LVD_LVW_IRQHandler
    Definitions
-      At line 319 in file ..\System\startup_MKL02Z4.s
+      At line 324 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 73 in file ..\System\startup_MKL02Z4.s
-      At line 285 in file ..\System\startup_MKL02Z4.s
+      At line 290 in file ..\System\startup_MKL02Z4.s
 
-MCG_IRQHandler 00000012
+MCG_IRQHandler 0000001E
 
 Symbol: MCG_IRQHandler
    Definitions
-      At line 340 in file ..\System\startup_MKL02Z4.s
+      At line 345 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 94 in file ..\System\startup_MKL02Z4.s
-      At line 306 in file ..\System\startup_MKL02Z4.s
+      At line 311 in file ..\System\startup_MKL02Z4.s
 
-NMI_Handler 00000008
+NMI_Handler 00000014
 
 Symbol: NMI_Handler
    Definitions
-      At line 256 in file ..\System\startup_MKL02Z4.s
+      At line 261 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 51 in file ..\System\startup_MKL02Z4.s
-      At line 257 in file ..\System\startup_MKL02Z4.s
+      At line 262 in file ..\System\startup_MKL02Z4.s
 
-PORTA_IRQHandler 00000012
+PORTA_IRQHandler 0000001E
 
 Symbol: PORTA_IRQHandler
    Definitions
-      At line 343 in file ..\System\startup_MKL02Z4.s
+      At line 348 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 97 in file ..\System\startup_MKL02Z4.s
-      At line 309 in file ..\System\startup_MKL02Z4.s
+      At line 314 in file ..\System\startup_MKL02Z4.s
 
-PORTB_IRQHandler 00000012
+PORTB_IRQHandler 0000001E
 
 Symbol: PORTB_IRQHandler
    Definitions
@@ -836,64 +847,64 @@ Symbol: PORTB_IRQHandler
 ARM Macro Assembler    Page 3 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 344 in file ..\System\startup_MKL02Z4.s
+      At line 349 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 98 in file ..\System\startup_MKL02Z4.s
-      At line 310 in file ..\System\startup_MKL02Z4.s
+      At line 315 in file ..\System\startup_MKL02Z4.s
 
-PendSV_Handler 0000000E
+PendSV_Handler 0000001A
 
 Symbol: PendSV_Handler
    Definitions
-      At line 269 in file ..\System\startup_MKL02Z4.s
+      At line 274 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 63 in file ..\System\startup_MKL02Z4.s
-      At line 270 in file ..\System\startup_MKL02Z4.s
+      At line 275 in file ..\System\startup_MKL02Z4.s
 
-Reserved16_IRQHandler 00000012
+Reserved16_IRQHandler 0000001E
 
 Symbol: Reserved16_IRQHandler
    Definitions
-      At line 313 in file ..\System\startup_MKL02Z4.s
+      At line 318 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 67 in file ..\System\startup_MKL02Z4.s
-      At line 279 in file ..\System\startup_MKL02Z4.s
+      At line 284 in file ..\System\startup_MKL02Z4.s
 
-Reserved17_IRQHandler 00000012
+Reserved17_IRQHandler 0000001E
 
 Symbol: Reserved17_IRQHandler
    Definitions
-      At line 314 in file ..\System\startup_MKL02Z4.s
+      At line 319 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 68 in file ..\System\startup_MKL02Z4.s
-      At line 280 in file ..\System\startup_MKL02Z4.s
+      At line 285 in file ..\System\startup_MKL02Z4.s
 
-Reserved18_IRQHandler 00000012
+Reserved18_IRQHandler 0000001E
 
 Symbol: Reserved18_IRQHandler
    Definitions
-      At line 315 in file ..\System\startup_MKL02Z4.s
+      At line 320 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 69 in file ..\System\startup_MKL02Z4.s
-      At line 281 in file ..\System\startup_MKL02Z4.s
+      At line 286 in file ..\System\startup_MKL02Z4.s
 
-Reserved19_IRQHandler 00000012
+Reserved19_IRQHandler 0000001E
 
 Symbol: Reserved19_IRQHandler
    Definitions
-      At line 316 in file ..\System\startup_MKL02Z4.s
+      At line 321 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 70 in file ..\System\startup_MKL02Z4.s
-      At line 282 in file ..\System\startup_MKL02Z4.s
+      At line 287 in file ..\System\startup_MKL02Z4.s
 
-Reserved20_IRQHandler 00000012
+Reserved20_IRQHandler 0000001E
 
 Symbol: Reserved20_IRQHandler
    Definitions
-      At line 317 in file ..\System\startup_MKL02Z4.s
+      At line 322 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 71 in file ..\System\startup_MKL02Z4.s
-      At line 283 in file ..\System\startup_MKL02Z4.s
+      At line 288 in file ..\System\startup_MKL02Z4.s
 
 
 
@@ -901,65 +912,65 @@ Symbol: Reserved20_IRQHandler
 ARM Macro Assembler    Page 4 Alphabetic symbol ordering
 Relocatable symbols
 
-Reserved23_IRQHandler 00000012
+Reserved23_IRQHandler 0000001E
 
 Symbol: Reserved23_IRQHandler
    Definitions
-      At line 320 in file ..\System\startup_MKL02Z4.s
+      At line 325 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 74 in file ..\System\startup_MKL02Z4.s
-      At line 286 in file ..\System\startup_MKL02Z4.s
+      At line 291 in file ..\System\startup_MKL02Z4.s
 
-Reserved27_IRQHandler 00000012
+Reserved27_IRQHandler 0000001E
 
 Symbol: Reserved27_IRQHandler
    Definitions
-      At line 324 in file ..\System\startup_MKL02Z4.s
+      At line 329 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 78 in file ..\System\startup_MKL02Z4.s
-      At line 290 in file ..\System\startup_MKL02Z4.s
+      At line 295 in file ..\System\startup_MKL02Z4.s
 
-Reserved29_IRQHandler 00000012
+Reserved29_IRQHandler 0000001E
 
 Symbol: Reserved29_IRQHandler
    Definitions
-      At line 326 in file ..\System\startup_MKL02Z4.s
+      At line 331 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 80 in file ..\System\startup_MKL02Z4.s
-      At line 292 in file ..\System\startup_MKL02Z4.s
+      At line 297 in file ..\System\startup_MKL02Z4.s
 
-Reserved30_IRQHandler 00000012
+Reserved30_IRQHandler 0000001E
 
 Symbol: Reserved30_IRQHandler
    Definitions
-      At line 327 in file ..\System\startup_MKL02Z4.s
+      At line 332 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 81 in file ..\System\startup_MKL02Z4.s
-      At line 293 in file ..\System\startup_MKL02Z4.s
+      At line 298 in file ..\System\startup_MKL02Z4.s
 
-Reserved35_IRQHandler 00000012
+Reserved35_IRQHandler 0000001E
 
 Symbol: Reserved35_IRQHandler
    Definitions
-      At line 332 in file ..\System\startup_MKL02Z4.s
+      At line 337 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 86 in file ..\System\startup_MKL02Z4.s
-      At line 298 in file ..\System\startup_MKL02Z4.s
+      At line 303 in file ..\System\startup_MKL02Z4.s
 
-Reserved36_IRQHandler 00000012
+Reserved36_IRQHandler 0000001E
 
 Symbol: Reserved36_IRQHandler
    Definitions
-      At line 333 in file ..\System\startup_MKL02Z4.s
+      At line 338 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 87 in file ..\System\startup_MKL02Z4.s
-      At line 299 in file ..\System\startup_MKL02Z4.s
+      At line 304 in file ..\System\startup_MKL02Z4.s
 
-Reserved37_IRQHandler 00000012
+Reserved37_IRQHandler 0000001E
 
 Symbol: Reserved37_IRQHandler
    Definitions
-      At line 334 in file ..\System\startup_MKL02Z4.s
+      At line 339 in file ..\System\startup_MKL02Z4.s
 
 
 
@@ -968,61 +979,61 @@ Relocatable symbols
 
    Uses
       At line 88 in file ..\System\startup_MKL02Z4.s
-      At line 300 in file ..\System\startup_MKL02Z4.s
+      At line 305 in file ..\System\startup_MKL02Z4.s
 
-Reserved38_IRQHandler 00000012
+Reserved38_IRQHandler 0000001E
 
 Symbol: Reserved38_IRQHandler
    Definitions
-      At line 335 in file ..\System\startup_MKL02Z4.s
+      At line 340 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 89 in file ..\System\startup_MKL02Z4.s
-      At line 301 in file ..\System\startup_MKL02Z4.s
+      At line 306 in file ..\System\startup_MKL02Z4.s
 
-Reserved39_IRQHandler 00000012
+Reserved39_IRQHandler 0000001E
 
 Symbol: Reserved39_IRQHandler
    Definitions
-      At line 336 in file ..\System\startup_MKL02Z4.s
+      At line 341 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 90 in file ..\System\startup_MKL02Z4.s
-      At line 302 in file ..\System\startup_MKL02Z4.s
+      At line 307 in file ..\System\startup_MKL02Z4.s
 
-Reserved40_IRQHandler 00000012
+Reserved40_IRQHandler 0000001E
 
 Symbol: Reserved40_IRQHandler
    Definitions
-      At line 337 in file ..\System\startup_MKL02Z4.s
+      At line 342 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 91 in file ..\System\startup_MKL02Z4.s
-      At line 303 in file ..\System\startup_MKL02Z4.s
+      At line 308 in file ..\System\startup_MKL02Z4.s
 
-Reserved41_IRQHandler 00000012
+Reserved41_IRQHandler 0000001E
 
 Symbol: Reserved41_IRQHandler
    Definitions
-      At line 338 in file ..\System\startup_MKL02Z4.s
+      At line 343 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 92 in file ..\System\startup_MKL02Z4.s
-      At line 304 in file ..\System\startup_MKL02Z4.s
+      At line 309 in file ..\System\startup_MKL02Z4.s
 
-Reserved42_IRQHandler 00000012
+Reserved42_IRQHandler 0000001E
 
 Symbol: Reserved42_IRQHandler
    Definitions
-      At line 339 in file ..\System\startup_MKL02Z4.s
+      At line 344 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 93 in file ..\System\startup_MKL02Z4.s
-      At line 305 in file ..\System\startup_MKL02Z4.s
+      At line 310 in file ..\System\startup_MKL02Z4.s
 
-Reserved45_IRQHandler 00000012
+Reserved45_IRQHandler 0000001E
 
 Symbol: Reserved45_IRQHandler
    Definitions
-      At line 342 in file ..\System\startup_MKL02Z4.s
+      At line 347 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 96 in file ..\System\startup_MKL02Z4.s
-      At line 308 in file ..\System\startup_MKL02Z4.s
+      At line 313 in file ..\System\startup_MKL02Z4.s
 
 Reset_Handler 00000000
 
@@ -1039,56 +1050,56 @@ Symbol: Reset_Handler
       At line 50 in file ..\System\startup_MKL02Z4.s
       At line 244 in file ..\System\startup_MKL02Z4.s
 
-SPI0_IRQHandler 00000012
+SPI0_IRQHandler 0000001E
 
 Symbol: SPI0_IRQHandler
    Definitions
-      At line 323 in file ..\System\startup_MKL02Z4.s
+      At line 328 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 77 in file ..\System\startup_MKL02Z4.s
-      At line 289 in file ..\System\startup_MKL02Z4.s
+      At line 294 in file ..\System\startup_MKL02Z4.s
 
-SVC_Handler 0000000C
+SVC_Handler 00000018
 
 Symbol: SVC_Handler
    Definitions
-      At line 265 in file ..\System\startup_MKL02Z4.s
+      At line 270 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 60 in file ..\System\startup_MKL02Z4.s
-      At line 266 in file ..\System\startup_MKL02Z4.s
+      At line 271 in file ..\System\startup_MKL02Z4.s
 
-SysTick_Handler 00000010
+SysTick_Handler 0000001C
 
 Symbol: SysTick_Handler
    Definitions
-      At line 273 in file ..\System\startup_MKL02Z4.s
+      At line 278 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 64 in file ..\System\startup_MKL02Z4.s
-      At line 274 in file ..\System\startup_MKL02Z4.s
+      At line 279 in file ..\System\startup_MKL02Z4.s
 
-TPM0_IRQHandler 00000012
+TPM0_IRQHandler 0000001E
 
 Symbol: TPM0_IRQHandler
    Definitions
-      At line 330 in file ..\System\startup_MKL02Z4.s
+      At line 335 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 84 in file ..\System\startup_MKL02Z4.s
-      At line 296 in file ..\System\startup_MKL02Z4.s
+      At line 301 in file ..\System\startup_MKL02Z4.s
 
-TPM1_IRQHandler 00000012
+TPM1_IRQHandler 0000001E
 
 Symbol: TPM1_IRQHandler
    Definitions
-      At line 331 in file ..\System\startup_MKL02Z4.s
+      At line 336 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 85 in file ..\System\startup_MKL02Z4.s
-      At line 297 in file ..\System\startup_MKL02Z4.s
+      At line 302 in file ..\System\startup_MKL02Z4.s
 
-TimerHandler 00000012
+TimerHandler 0000001E
 
 Symbol: TimerHandler
    Definitions
-      At line 341 in file ..\System\startup_MKL02Z4.s
+      At line 346 in file ..\System\startup_MKL02Z4.s
    Uses
 
 
@@ -1097,25 +1108,26 @@ ARM Macro Assembler    Page 7 Alphabetic symbol ordering
 Relocatable symbols
 
       At line 95 in file ..\System\startup_MKL02Z4.s
-      At line 307 in file ..\System\startup_MKL02Z4.s
+      At line 312 in file ..\System\startup_MKL02Z4.s
 
-UART0_IRQHandler 00000012
+UART0_IRQHandler 0000001E
 
 Symbol: UART0_IRQHandler
    Definitions
-      At line 325 in file ..\System\startup_MKL02Z4.s
+      At line 330 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 79 in file ..\System\startup_MKL02Z4.s
-      At line 291 in file ..\System\startup_MKL02Z4.s
+      At line 296 in file ..\System\startup_MKL02Z4.s
 
-__user_initial_stackheap 00000014
+__user_initial_stackheap 00000020
 
 Symbol: __user_initial_stackheap
    Definitions
-      At line 367 in file ..\System\startup_MKL02Z4.s
+      At line 372 in file ..\System\startup_MKL02Z4.s
    Uses
-      At line 366 in file ..\System\startup_MKL02Z4.s
-Comment: __user_initial_stackheap used once
+      At line 251 in file ..\System\startup_MKL02Z4.s
+      At line 371 in file ..\System\startup_MKL02Z4.s
+
 42 symbols
 
 
@@ -1254,7 +1266,7 @@ ARM Macro Assembler    Page 3 Alphabetic symbol ordering
 Absolute symbols
 
       At line 34 in file ..\System\startup_MKL02Z4.s
-      At line 371 in file ..\System\startup_MKL02Z4.s
+      At line 376 in file ..\System\startup_MKL02Z4.s
 
 Stack_Size 00000100
 
@@ -1263,7 +1275,7 @@ Symbol: Stack_Size
       At line 19 in file ..\System\startup_MKL02Z4.s
    Uses
       At line 22 in file ..\System\startup_MKL02Z4.s
-      At line 370 in file ..\System\startup_MKL02Z4.s
+      At line 375 in file ..\System\startup_MKL02Z4.s
 
 __Vectors_Size 000000C0
 
@@ -1318,7 +1330,7 @@ Symbol: AppMain
    Definitions
       At line 246 in file ..\System\startup_MKL02Z4.s
    Uses
-      At line 249 in file ..\System\startup_MKL02Z4.s
+      At line 254 in file ..\System\startup_MKL02Z4.s
 Comment: AppMain used once
 SystemInit 00000000
 
@@ -1326,15 +1338,31 @@ Symbol: SystemInit
    Definitions
       At line 245 in file ..\System\startup_MKL02Z4.s
    Uses
-      At line 247 in file ..\System\startup_MKL02Z4.s
+      At line 249 in file ..\System\startup_MKL02Z4.s
 Comment: SystemInit used once
 __use_two_region_memory 00000000
 
 Symbol: __use_two_region_memory
    Definitions
-      At line 365 in file ..\System\startup_MKL02Z4.s
+      At line 370 in file ..\System\startup_MKL02Z4.s
    Uses
       None
 Comment: __use_two_region_memory unused
-3 symbols
-415 symbols in table
+initialRwData 00000000
+
+Symbol: initialRwData
+   Definitions
+      At line 247 in file ..\System\startup_MKL02Z4.s
+   Uses
+      At line 252 in file ..\System\startup_MKL02Z4.s
+Comment: initialRwData used once
+initialZiData 00000000
+
+Symbol: initialZiData
+   Definitions
+      At line 248 in file ..\System\startup_MKL02Z4.s
+   Uses
+      At line 253 in file ..\System\startup_MKL02Z4.s
+Comment: initialZiData used once
+5 symbols
+417 symbols in table

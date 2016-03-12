@@ -241,14 +241,19 @@ FSEC            EQU     0xFE
 ; Reset Handler
 
 Reset_Handler   PROC
-                EXPORT  Reset_Handler             [WEAK]
-                IMPORT  SystemInit
-                IMPORT   AppMain
-                LDR     R0, =SystemInit
-                BLX     R0
-                LDR     R0, =AppMain
-                BX      R0
-                ENDP
+				EXPORT  Reset_Handler             [WEAK]
+				IMPORT  SystemInit
+				IMPORT  AppMain
+				IMPORT  initialRwData
+				IMPORT  initialZiData
+				LDR     R0, =SystemInit
+				BLX     R0
+				BL.W    __user_initial_stackheap
+				BL.W    initialRwData
+				BL.W    initialZiData
+				LDR     R0, =AppMain
+				BX      R0
+				ENDP
 
 
 ; Dummy Exception Handlers (infinite loops which can be modified)

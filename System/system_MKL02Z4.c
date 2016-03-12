@@ -278,3 +278,44 @@ void SystemCoreClockUpdate (void) {
   } /* (!((MCG->C1 & MCG_C1_CLKS_MASK) == 0x80u)) */
   SystemCoreClock = (MCGOUTClock / (1u + ((SIM->CLKDIV1 & SIM_CLKDIV1_OUTDIV1_MASK) >> SIM_CLKDIV1_OUTDIV1_SHIFT)));
 }
+
+
+extern unsigned char Image$$ER_IROM1$$Limit[];			//ROM1 end of code
+#define ROM_RW_START ((void *)Image$$ER_IROM1$$Limit)	//start of rw in rom
+
+extern unsigned char Image$$RW_IRAM1$$Base[];			//RAM1 RW start 0x20000000;
+#define RAM_RW_START ((void *)Image$$RW_IRAM1$$Base)
+	
+extern unsigned char Image$$RW_IRAM1$$Limit[];			//RAM1 RW END
+#define RAM_RW_END ((void *)Image$$RW_IRAM1$$Limit)	
+	
+extern unsigned char Image$$ZI_IRAM1$$Base[];			//RAM1 ZI start 
+#define RAM_ZI_START ((void *)Image$$ZI_IRAM1$$Base)
+	
+extern unsigned char Image$$ZI_RAM_END$$Base[];			//RAM1 ZI END
+#define RAM_ZI_END ((void *)Image$$ZI_RAM_END$$Base)	
+
+void initialRwData(void)
+{
+	unsigned char *roms=((void *)Image$$ER_IROM1$$Limit);
+	unsigned char *rams=((void *)Image$$RW_IRAM1$$Base);
+	unsigned char *rame=((void *)Image$$RW_IRAM1$$Limit);
+	unsigned int i,len;
+	len=rame-rams;
+	for(i=0;i<len;i++)
+	{
+		*(rams+i)=*(roms+i);
+	}
+}
+
+void initialZiData(void)
+{
+	unsigned char *zis=((void *)Image$$ZI_IRAM1$$Base);
+	unsigned char *zie=((void *)Image$$ZI_RAM_END$$Base);
+	unsigned int i,len;
+	len=zie-zis;
+	for(i=0;i<len;i++)
+	{
+		*(zis+i)=0;
+	}
+}
